@@ -7,11 +7,7 @@ import { PostEntity } from "./posts.entities";
 export class CommentsEntity extends BaseEntity {
 
     @Column({ default: '' })
-    dateCreation: Date;
-
-    @Column({ default: '' })
     description: string;
-
 
     @ManyToOne(() => UserEntity, (user) => user.comments)
     user: UserEntity;

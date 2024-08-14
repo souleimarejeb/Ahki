@@ -9,9 +9,6 @@ export class TokenHistoryEntity extends BaseEntity {
     @Column({ default: 0 })
     tokenSourceValue: number;
 
-    @Column()
-    dateCreation: Date;
-
     @Column({ default: 0 })
     totalValue: number;
 

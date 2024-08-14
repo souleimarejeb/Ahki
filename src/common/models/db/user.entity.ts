@@ -15,10 +15,10 @@ export class UserEntity extends BaseEntity {
     username: string;
 
     @Column({ default: '' })
-    first_name: string;
+    firstName: string;
 
     @Column({ default: '' })
-    last_name: string;
+    lastName: string;
 
     @Column({ default: '', unique: true })
     email: string;

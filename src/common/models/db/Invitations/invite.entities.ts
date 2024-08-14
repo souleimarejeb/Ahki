@@ -2,12 +2,13 @@ import { BeforeInsert, Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "../base.model";
 import { UserEntity } from "../user.entity";
 import { InviteRedmptionEntity } from "./invite_redemption.entities";
+import moment from "moment";
 
 @Entity('invite')
 export class InviteEntity extends BaseEntity {
 
-    @Column({ default: '' })
-    code: number;
+    @Column({ default: Date.now().toString() })
+    code: string;
 
     @Column()
     expiration_date: Date;
@@ -18,11 +19,10 @@ export class InviteEntity extends BaseEntity {
     @ManyToOne(() => UserEntity, (user) => user.invites)
     user: UserEntity;
 
-
-    // @BeforeInsert()
-    // generateExpirationDate() {
-    //     this.expiration_date = this.created_at.getHours+19;
-    // }
+    @BeforeInsert()
+    generateExpirationDate() {
+        this.expiration_date = moment().add('hour', 19).toDate();
+    }
 }
 
 

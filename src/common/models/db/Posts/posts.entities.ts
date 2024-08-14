@@ -34,7 +34,7 @@ export class PostEntity extends BaseEntity {
     media: MediaEntity[];
 
     @OneToMany(() => ReactionsEntity, (reactions) => reactions.post)
-    reactions: BookMarsEntity[];
+    reactions: ReactionsEntity[];
 
 
 }

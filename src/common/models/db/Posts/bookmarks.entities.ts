@@ -3,7 +3,7 @@ import { BaseEntity } from "../base.model";
 import { UserEntity } from "../user.entity";
 import { PostEntity } from "./posts.entities";
 
-@Entity('book_marks')
+@Entity('bookmarks')
 export class BookMarsEntity extends BaseEntity {
 
     @ManyToOne(() => UserEntity, (user) => user.bookMarks)
