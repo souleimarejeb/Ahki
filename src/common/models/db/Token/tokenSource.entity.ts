@@ -13,7 +13,5 @@ export class TokenSourceEntity extends BaseEntity {
 
     @OneToMany(() => TokenHistoryEntity, (tokenHistory) => tokenHistory.tokensource)
     tokenHistory: TokenHistoryEntity[];
-
-
 }
 

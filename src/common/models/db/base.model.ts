@@ -6,10 +6,9 @@
  */
 
 import { BeforeInsert, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn, } from 'typeorm';
-
-
 @Entity('base_entity')
 export class BaseEntity {
+
     @PrimaryColumn()
     id: string;
 

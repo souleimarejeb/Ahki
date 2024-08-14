@@ -14,8 +14,5 @@ export class CommentsEntity extends BaseEntity {
 
     @ManyToOne(() => PostEntity, (post) => post.comments)
     post: PostEntity;
-
-
-
 }
 

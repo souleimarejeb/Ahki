@@ -58,7 +58,5 @@ export class UserEntity extends BaseEntity {
 
     @OneToMany(() => InviteRedmptionEntity, (inviteRedemption) => inviteRedemption.user)
     inviteRedemption: InviteRedmptionEntity[];
-
-
 }
 

@@ -5,7 +5,6 @@ import { CommentsEntity } from "./comments.entities";
 import { BookMarsEntity } from "./bookmarks.entities";
 import { MediaEntity } from "./media.entities";
 import { ReactionsEntity } from "./reactions.entities";
-
 @Entity('post')
 export class PostEntity extends BaseEntity {
 
@@ -35,7 +34,5 @@ export class PostEntity extends BaseEntity {
 
     @OneToMany(() => ReactionsEntity, (reactions) => reactions.post)
     reactions: ReactionsEntity[];
-
-
 }
 

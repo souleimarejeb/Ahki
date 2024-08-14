@@ -11,7 +11,6 @@ import { InviteEntity } from 'src/common/models/db/Invitations/invite.entities';
 import { InviteRedmptionEntity } from 'src/common/models/db/Invitations/invite_redemption.entities';
 import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entities';
 
-
 @Module({
     imports: [TypeOrmModule.forFeature([
         UserEntity, TokenHistoryEntity, TokenSourceEntity,
