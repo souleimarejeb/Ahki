@@ -1,94 +1,62 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany } from "typeorm";
 import { BaseEntity } from "./base.model";
-import { AddressEntity } from "./address.entity";
-import { EnterpriseEntity } from "./enterprise.entity";
+import { TokenHistoryEntity } from "./Token/tokenHistory.entity";
+import { PostEntity } from "./Posts/posts.entities";
+import { CommentsEntity } from "./Posts/comments.entities";
+import { BookMarsEntity } from "./Posts/bookmarks.entities";
+import { ReactionsEntity } from "./Posts/reactions.entities";
+import { InviteEntity } from "./Invitations/invite.entities";
+import { InviteRedemptionEntity } from "./Invitations/invite_redemption.entities";
 
-
-@Entity('users_mgmt__user_roles')
-export class UserRolesEntity extends BaseEntity {
-    @Column({ default: '' })
-    role: string;
-}
-
-/**
- * @description
- * This entity is used to represent the user
- * This holds a user's basic data (id, dates) along with Authentication_id (Auth0)
- */
-@Entity('users_mgmt__user')
+@Entity('users')
 export class UserEntity extends BaseEntity {
-    @Column({ default: '' })
-    authentication_id: string;
+
+    @Column({ default: '', unique: true })
+    username: string;
 
     @Column({ default: '' })
-    first_name: string;
+    firstName: string;
 
     @Column({ default: '' })
-    last_name: string;
+    lastName: string;
 
-    @Column({ default: '' })
-    site: string;
-
-    @Column({ type: 'json' })
-    civility: { id: string; civility: string };
-
-    @Column({ default: '' })
-    gender: string;
-
-    @Column({ default: '' })
-    job_title: string;
-
-    @Column({ default: '' })
-    language: string;
-
-    @Column({ default: '' })
+    @Column({ default: '', unique: true })
     email: string;
 
-    @Column({ default: '' })
-    billsEmail: string;
-
-    @Column({ default: '' })
-    phone: string;
-
-    @Column({ default: 'Non actif' })
-    user_status: string;
-
-    @Column({ default: '' })
-    city: string;
-
-    @Column({ default: 'contact_person' })
-    user_type: string;
+    @Column({ default: 'user' })
+    role: string;
 
     @Column({ default: 0 })
-    isDefault: 0 | 1;
+    tokenBlance: number;
 
-    @Column({ default: false })
+    @Column({ default: true })
     status: boolean;
 
-    @OneToMany(() => AddressEntity, (address) => address.user, { cascade: true })
-    @JoinColumn()
-    address: AddressEntity[];
+    @Column({ default: '' })
+    links: string;
 
-    @ManyToMany(() => EnterpriseEntity, (enterprise) => enterprise.sales_agents)
-    @JoinTable({
-        name: "enterprise_mgmt__sales_agents", // Name of the join table
-        joinColumn: {
-            name: "user_id",
-            referencedColumnName: "id"
-        },
-        inverseJoinColumn: {
-            name: "enterprise_id",
-            referencedColumnName: "id"
-        }
-    })
-    enterprises: EnterpriseEntity[];
+    @Column({ default: '' })
+    idAuthentication: string;
 
-    @ManyToOne(() => UserRolesEntity)
-    @JoinColumn()
-    user_role: UserRolesEntity;
+    @OneToMany(() => TokenHistoryEntity, (tokenHistory) => tokenHistory.user)
+    tokenHistories: TokenHistoryEntity[];
 
-    @ManyToOne(() => EnterpriseEntity, (enterprise) => enterprise.users, { onDelete: 'CASCADE' })
-    @JoinColumn()
-    enterprise: EnterpriseEntity;
+    @OneToMany(() => CommentsEntity, (comment) => comment.user)
+    comments: CommentsEntity[];
+
+    @OneToMany(() => PostEntity, (Post) => Post.user)
+    Posts: PostEntity[];
+
+    @OneToMany(() => BookMarsEntity, (bookMarks) => bookMarks.user)
+    bookMarks: BookMarsEntity[];
+
+    @OneToMany(() => ReactionsEntity, (reactions) => reactions.user)
+    reactions: ReactionsEntity[];
+
+    @OneToMany(() => InviteEntity, (invite) => invite.user)
+    invites: InviteEntity[];
+
+    @OneToMany(() => InviteRedemptionEntity, (inviteRedemption) => inviteRedemption.user)
+    inviteRedemption: InviteRedemptionEntity[];
 }
 

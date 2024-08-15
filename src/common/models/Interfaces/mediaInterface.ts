@@ -1,0 +1,4 @@
+interface IMediaInterface {
+
+    URL: string;
+}

@@ -1,0 +1,4 @@
+interface IComments {
+
+    description: string;
+}
