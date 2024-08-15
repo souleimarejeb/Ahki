@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { InviteRedemptionService } from '../Services/invite_redemption.service';
 import { ApiTags } from '@nestjs/swagger';
+import { InviteRedemptionEntity } from 'src/common/models/db/Invitations/invite_redemption.entities';
 
 
 @Controller('invite-redemption')
@@ -9,7 +10,7 @@ export class InviteRedemptionController {
     constructor(private readonly InvitationRemdpService: InviteRedemptionService) { }
 
     @Post()
-    create(@Body() inviteRedmp: IInviteRedemption) {
+    create(@Body() inviteRedmp: any) {
         return this.InvitationRemdpService.create(inviteRedmp);
     }
 
@@ -24,7 +25,7 @@ export class InviteRedemptionController {
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() inviteRedmp: Partial<IInviteRedemption>) {
+    update(@Param('id') id: string, @Body() inviteRedmp: Partial<any>) {
         return this.InvitationRemdpService.update(id, inviteRedmp);
     }
 

@@ -8,7 +8,7 @@ import { InviteRedemptionEntity } from 'src/common/models/db/Invitations/invite_
 export class InviteRedemptionService {
     constructor(@InjectRepository(InviteRedemptionEntity) private inviteRedmpRepository: Repository<InviteRedemptionEntity>,
     ) { }
-    create(inviteRedmpDetails: IInviteRedemption) {
+    create(inviteRedmpDetails: any) {
         const newInviteRedmp = this.inviteRedmpRepository.create({
             ...inviteRedmpDetails,
 
@@ -24,7 +24,7 @@ export class InviteRedemptionService {
         return this.inviteRedmpRepository.findBy({ id });
     }
 
-    update(id: string, updateInviteRedmp: Partial<IInviteRedemption>) {
+    update(id: string, updateInviteRedmp: Partial<any>) {
         return this.inviteRedmpRepository.update({ id }, { ...updateInviteRedmp });
     }
 

@@ -7,7 +7,7 @@ import { Repository } from 'typeorm/repository/Repository';
 export class BookmarksService {
     constructor(@InjectRepository(BookMarsEntity) private bookmarksRepository: Repository<BookMarsEntity>,
     ) { }
-    create(bookmarksDetails: IBookmarksInterface) {
+    create(bookmarksDetails: any) {
         const newBookmark = this.bookmarksRepository.create({
             ...bookmarksDetails,
 
@@ -23,7 +23,7 @@ export class BookmarksService {
         return this.bookmarksRepository.findBy({ id });
     }
 
-    update(id: string, updateBookmarks: Partial<IBookmarksInterface>) {
+    update(id: string, updateBookmarks: Partial<any>) {
         return this.bookmarksRepository.update({ id }, { ...updateBookmarks });
     }
 
