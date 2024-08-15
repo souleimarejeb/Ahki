@@ -5,7 +5,7 @@ import { TokenHistoryEntity } from "./tokenHistory.entity";
 @Entity('token_source')
 export class TokenSourceEntity extends BaseEntity {
 
-    @Column({ default: '' })
+    @Column({ default: '', unique: true })
     label: string;
 
     @Column({ default: 0 })

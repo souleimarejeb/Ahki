@@ -6,7 +6,7 @@ import { CommentsEntity } from "./Posts/comments.entities";
 import { BookMarsEntity } from "./Posts/bookmarks.entities";
 import { ReactionsEntity } from "./Posts/reactions.entities";
 import { InviteEntity } from "./Invitations/invite.entities";
-import { InviteRedmptionEntity } from "./Invitations/invite_redemption.entities";
+import { InviteRedemptionEntity } from "./Invitations/invite_redemption.entities";
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -56,7 +56,7 @@ export class UserEntity extends BaseEntity {
     @OneToMany(() => InviteEntity, (invite) => invite.user)
     invites: InviteEntity[];
 
-    @OneToMany(() => InviteRedmptionEntity, (inviteRedemption) => inviteRedemption.user)
-    inviteRedemption: InviteRedmptionEntity[];
+    @OneToMany(() => InviteRedemptionEntity, (inviteRedemption) => inviteRedemption.user)
+    inviteRedemption: InviteRedemptionEntity[];
 }
 

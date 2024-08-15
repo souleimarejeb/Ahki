@@ -10,8 +10,11 @@ import { BookMarsEntity } from 'src/common/models/db/Posts/bookmarks.entities';
 import { InviteEntity } from 'src/common/models/db/Invitations/invite.entities';
 import { InviteRedemptionEntity } from 'src/common/models/db/Invitations/invite_redemption.entities';
 import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entities';
-import { UserController } from './Controllers/user.controller';
-import { UserService } from './Services/user.service';
+import { InviteController } from './Controllers/invite.controller';
+import { InviteRedemptionController } from './Controllers/invite_redemption.controller';
+import { InviteService } from './Services/invite.service';
+import { InviteRedemptionService } from './Services/invite_redemption.service';
+
 
 @Module({
     imports: [
@@ -27,7 +30,13 @@ import { UserService } from './Services/user.service';
             InviteRedemptionEntity,
             ReactionsEntity
         ])],
-    controllers: [UserController],
-    providers: [UserService]
+    controllers: [
+        InviteController,
+        InviteRedemptionController
+    ],
+    providers: [
+        InviteService,
+        InviteRedemptionService
+    ]
 })
-export class UsersModule { }
+export class InvitationsModule { }

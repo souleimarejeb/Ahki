@@ -1,0 +1,4 @@
+interface IReactions {
+
+    type: string;
+}

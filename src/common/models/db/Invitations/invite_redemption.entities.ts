@@ -4,7 +4,7 @@ import { UserEntity } from "../user.entity";
 import { InviteEntity } from "./invite.entities";
 
 @Entity('invite_redemption')
-export class InviteRedmptionEntity extends BaseEntity {
+export class InviteRedemptionEntity extends BaseEntity {
 
     @ManyToOne(() => UserEntity, (user) => user.inviteRedemption)
     user: UserEntity;
