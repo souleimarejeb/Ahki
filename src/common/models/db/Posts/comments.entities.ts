@@ -12,7 +12,7 @@ export class CommentsEntity extends BaseEntity {
     @ManyToOne(() => UserEntity, (user) => user.comments)
     user: UserEntity;
 
-    @ManyToOne(() => PostEntity, (post) => post.comments)
+    @ManyToOne(() => PostEntity, (post) => post.comments, { onDelete: 'CASCADE' })
     post: PostEntity;
 }
 

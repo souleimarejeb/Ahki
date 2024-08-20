@@ -9,7 +9,7 @@ export class BookMarsEntity extends BaseEntity {
     @ManyToOne(() => UserEntity, (user) => user.bookMarks)
     user: UserEntity;
 
-    @ManyToOne(() => PostEntity, (post) => post.bookMarks)
+    @ManyToOne(() => PostEntity, (post) => post.bookMarks, { onDelete: 'CASCADE' })
     post: PostEntity;
 }
 
