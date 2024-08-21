@@ -21,19 +21,19 @@ export class PostService {
 
     ) { }
 
-    async create(id: string, payloads: Partial<IPostInterface>): Promise<PostEntity[]> {
+    async create(id: string, payloads: Partial<IPostInterface>) {
 
         try {
-            this.userService.findOne(id)
-                .then((user) => {
-                    if (!user) throw new HttpException('Post not found. Cannot Create post ', HttpStatus.BAD_REQUEST);
+            const user = await this.userService.findOne(id);
 
-                    const newpost = this.postRepository.create({
-                        ...payloads,
-                        user: user,
-                    });
-                    return this.postRepository.save(newpost);
-                })
+            if (!user) throw new HttpException('Post not found. Cannot Create post ', HttpStatus.BAD_REQUEST);
+
+            const newpost = this.postRepository.create({
+                ...payloads,
+                user: user[0],
+            });
+
+            return this.postRepository.save(newpost);
 
         } catch (error) {
             console.error("Error saving post:", error);
