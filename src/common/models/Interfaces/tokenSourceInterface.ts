@@ -1,4 +1,4 @@
-interface ITokenSource {
+export interface ITokenSource {
 
     label: string;
 

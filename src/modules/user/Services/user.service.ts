@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserEntity } from 'src/common/models/db/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
+import { IUserInterface } from 'src/common/models/Interfaces/UserInterface';
 
 @Injectable()
 export class UserService {
@@ -19,8 +20,8 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOne(id: string) {
-    return this.userRepository.findBy({ id });
+  async findOne(id: string) {
+    return await this.userRepository.findBy({ id });
   }
 
   update(id: string, updateUser: Partial<IUserInterface>) {

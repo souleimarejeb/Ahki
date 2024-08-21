@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PostService } from '../Services/post.service';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { IPostInterface } from 'src/common/models/Interfaces/postInterface';
 
 
 @Controller('post')
@@ -11,17 +12,16 @@ export class PostController {
     @ApiQuery({
         name: "userId",
         type: String,
-        description: "A parameter. Optional",
-        required: false
+        description: "A parameter. not Optional",
+        required: true
     })
-    @Post('/addPost')
+    @Post('/user')
     async addnew(
-        @Body() newpost: IPostInterface,
+        @Body() payloads: IPostInterface,
         @Query('userId') userId?: string,
     ) {
-        console.log(userId)
         try {
-            return await this.postService.create(userId, newpost);
+            return await this.postService.create(userId, payloads);
         } catch (error) {
             console.error('Error in create:', error);
             throw new Error('Unable to create posts');
@@ -38,37 +38,31 @@ export class PostController {
         }
     }
 
-    @Get('one_post')
-    async findOne(@Query('postId') postId?: string) {
+    @Get(':postId')
+    async findOne(@Param('postId') postId: string) {
         try {
-            return await this.postService.findOneQ(postId);
+            return await this.postService.findOne(postId);
         } catch (error) {
             console.error('Error in findOne:', error);
             throw new Error('Unable to retrieve a post');
         }
     }
 
-    @ApiQuery({
-        name: "postId",
-        type: String,
-        description: "A parameter. Optional",
-        required: false
-    })
-    @Patch('update')
+    @Patch(':postId')
     update(
-        @Body() post: Partial<IPostInterface>,
-        @Query('postId') postId?: string
+        @Body() payloads: Partial<IPostInterface>,
+        @Param('postId') postId: string
     ) {
         try {
-            return this.postService.update(postId, post);
+            return this.postService.update(postId, payloads);
         } catch (error) {
             console.error('Error in update:', error);
             throw new Error('Unable to update a post');
         }
     }
 
-    @Delete('/delete')
-    async remove(@Query('postId') postId?: string,) {
+    @Delete(':postId')
+    async remove(@Param('postId') postId: string,) {
         try {
             return await this.postService.remove(postId);
         } catch (error) {

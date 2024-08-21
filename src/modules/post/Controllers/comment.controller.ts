@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CommentsService } from '../Services/comments.service';
 import { ApiTags } from '@nestjs/swagger';
+import { IComments } from 'src/common/models/Interfaces/commentInterface';
 
 @Controller('comment')
 @ApiTags('Comment')

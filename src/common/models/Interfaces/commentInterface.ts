@@ -1,4 +1,4 @@
-interface IComments {
+export interface IComments {
 
     description: string;
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InviteEntity } from 'src/common/models/db/Invitations/invite.entities';
+import { IInvite } from 'src/common/models/Interfaces/inviteInterface';
 import { Repository } from 'typeorm/repository/Repository';
 
 @Injectable()

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommentsEntity } from 'src/common/models/db/Posts/comments.entities';
+import { IComments } from 'src/common/models/Interfaces/commentInterface';
 import { Repository } from 'typeorm/repository/Repository';
 
 @Injectable()

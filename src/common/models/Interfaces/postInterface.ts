@@ -1,4 +1,7 @@
-interface IPostInterface {
+import { IUserInterface } from "./UserInterface";
+
+
+export interface IPostInterface {
 
     title: string;
 
@@ -7,4 +10,6 @@ interface IPostInterface {
     description: string;
 
     status: boolean;
+
+    user: Partial<IUserInterface>;
 }

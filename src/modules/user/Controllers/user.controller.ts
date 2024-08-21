@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UserService } from '../Services/user.service';
 import { ApiTags } from '@nestjs/swagger';
+import { IUserInterface } from 'src/common/models/Interfaces/UserInterface';
 
 @Controller('user')
 @ApiTags('User')

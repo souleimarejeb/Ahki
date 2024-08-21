@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm/repository/Repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TokenSourceEntity } from 'src/common/models/db/Token/tokenSource.entity';
+import { ITokenSource } from 'src/common/models/Interfaces/tokenSourceInterface';
 
 @Injectable()
 export class TokenSourceService {
