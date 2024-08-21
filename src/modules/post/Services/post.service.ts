@@ -3,10 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
 import { PostEntity } from 'src/common/models/db/Posts/posts.entities';
 import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entities';
-import { copyFile } from 'fs';
 import { CommentsEntity } from 'src/common/models/db/Posts/comments.entities';
 import { UserService } from 'src/modules/user/Services/user.service';
-import { type } from 'os';
 import { IPostInterface } from 'src/common/models/Interfaces/postInterface';
 
 @Injectable()

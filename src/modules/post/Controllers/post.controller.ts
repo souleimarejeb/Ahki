@@ -3,7 +3,6 @@ import { PostService } from '../Services/post.service';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { IPostInterface } from 'src/common/models/Interfaces/postInterface';
 
-
 @Controller('post')
 @ApiTags('Post')
 export class PostController {
@@ -15,10 +14,10 @@ export class PostController {
         description: "A parameter. not Optional",
         required: true
     })
-    @Post('/user')
+    @Post(':userId')
     async addnew(
         @Body() payloads: IPostInterface,
-        @Query('userId') userId?: string,
+        @Param('userId') userId?: string,
     ) {
         try {
             return await this.postService.create(userId, payloads);
