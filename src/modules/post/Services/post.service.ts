@@ -4,8 +4,8 @@ import { Repository } from 'typeorm/repository/Repository';
 import { PostEntity } from 'src/common/models/db/Posts/posts.entities';
 import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entities';
 import { CommentsEntity } from 'src/common/models/db/Posts/comments.entities';
-import { UserService } from 'src/modules/user/Services/user.service';
-import { IPostInterface } from 'src/common/models/Interfaces/postInterface';
+import { UserService } from 'src/modules/users/user.service';
+import { IPosts } from 'src/common/models/Interfaces/posts/postInterface';
 
 @Injectable()
 export class PostService {
@@ -19,7 +19,7 @@ export class PostService {
 
     ) { }
 
-    async create(id: string, payloads: Partial<IPostInterface>) {
+    async create(id: string, payloads: Partial<IPosts>) {
 
         try {
             const user = await this.userService.findOne(id);
@@ -87,7 +87,7 @@ export class PostService {
         }
     }
 
-    async update(id: string, payloads: Partial<IPostInterface>) {
+    async update(id: string, payloads: Partial<IPosts>) {
         try {
 
             return await this.postRepository.update({ id }, { ...payloads });

@@ -1,5 +1,5 @@
 import { BeforeInsert, Column, Entity, ManyToOne, OneToMany } from "typeorm";
-import { BaseEntity } from "../base.model";
+import { BaseEntity } from "../base.entity";
 import { UserEntity } from "../user.entity";
 import { PostEntity } from "./posts.entities";
 

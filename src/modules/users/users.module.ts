@@ -4,8 +4,8 @@ import { UserEntity } from '../../common/models/db/user.entity';
 import { PostEntity } from 'src/common/models/db/Posts/posts.entities';
 import { CommentsEntity } from 'src/common/models/db/Posts/comments.entities';
 import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entities';
-import { UserController } from './Controllers/user.controller';
-import { UserService } from './Services/user.service';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
 
 @Module({
     imports: [

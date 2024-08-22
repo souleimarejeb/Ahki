@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CommentsService } from '../Services/comments.service';
 import { ApiTags } from '@nestjs/swagger';
-import { IComments } from 'src/common/models/Interfaces/commentInterface';
+import { IComments } from 'src/common/models/Interfaces/posts/commentInterface';
 
-@Controller('comment')
-@ApiTags('Comment')
+@Controller('comments')
+@ApiTags('POSTS MGMT - Comments Routes')
 export class CommentController {
     constructor(private readonly commentService: CommentsService) { }
 

@@ -1,9 +1,10 @@
 import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import { BaseEntity } from "../base.model";
+import { BaseEntity } from "../base.entity";
 import { UserEntity } from "../user.entity";
 import { CommentsEntity } from "./comments.entities";
 import { ReactionsEntity } from "./reactions.entities";
-@Entity('post')
+
+@Entity('posts')
 export class PostEntity extends BaseEntity {
 
     @Column({ default: '' })

@@ -1,15 +1,15 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UserService } from '../Services/user.service';
+import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
-import { IUserInterface } from 'src/common/models/Interfaces/UserInterface';
+import { IUsers } from 'src/common/models/Interfaces/UserInterface';
 
-@Controller('user')
-@ApiTags('User')
+@Controller('users')
+@ApiTags('Users MGMT ROUTES')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post()
-  create(@Body() createUser: IUserInterface) {
+  create(@Body() createUser: IUsers) {
     return this.userService.create(createUser);
   }
 
@@ -24,7 +24,7 @@ export class UserController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUser: Partial<IUserInterface>) {
+  update(@Param('id') id: string, @Body() updateUser: Partial<IUsers>) {
     return this.userService.update(id, updateUser);
   }
 

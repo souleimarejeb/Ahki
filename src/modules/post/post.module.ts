@@ -10,15 +10,16 @@ import { CommentController } from './Controllers/comment.controller';
 import { ReactionsController } from './Controllers/reactions.controller';
 import { CommentsService } from './Services/comments.service';
 import { ReactionService } from './Services/reaction.service';
-import { UserService } from '../user/Services/user.service';
+import { UserService } from '../users/user.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([
-        UserEntity,
-        PostEntity,
-        CommentsEntity,
-        ReactionsEntity
-    ])],
+    imports: [
+        TypeOrmModule.forFeature([
+            UserEntity,
+            PostEntity,
+            CommentsEntity,
+            ReactionsEntity
+        ])],
     controllers: [
         PostController,
         CommentController,

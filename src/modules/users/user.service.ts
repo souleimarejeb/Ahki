@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { UserEntity } from 'src/common/models/db/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
-import { IUserInterface } from 'src/common/models/Interfaces/UserInterface';
+import { IUsers } from 'src/common/models/Interfaces/UserInterface';
 
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>,
   ) { }
 
-  create(createUser: IUserInterface) {
+  create(createUser: IUsers) {
     const newUser = this.userRepository.create({
       ...createUser,
     });
@@ -24,7 +24,7 @@ export class UserService {
     return await this.userRepository.findBy({ id });
   }
 
-  update(id: string, updateUser: Partial<IUserInterface>) {
+  update(id: string, updateUser: Partial<IUsers>) {
     return this.userRepository.update({ id }, { ...updateUser });;
   }
 

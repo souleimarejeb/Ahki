@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ConnectionConfiguration } from '../../common/db/data-source';
-import { UsersModule } from '../user/users.module';
-import { PostModule } from '../post/post.module';
+
+import { ConnectionConfiguration } from '../common/db/data-source';
+import { UsersModule } from './users/users.module';
+import { PostModule } from './post/post.module';
 
 
 @Module({
@@ -15,8 +14,8 @@ import { PostModule } from '../post/post.module';
     UsersModule,
     PostModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 
 export class AppModule { }

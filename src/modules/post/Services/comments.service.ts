@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommentsEntity } from 'src/common/models/db/Posts/comments.entities';
-import { IComments } from 'src/common/models/Interfaces/commentInterface';
-import { UserService } from 'src/modules/user/Services/user.service';
+import { IComments } from 'src/common/models/Interfaces/posts/commentInterface';
+import { UserService } from 'src/modules/users/user.service';
 import { Repository } from 'typeorm/repository/Repository';
 import { PostService } from './post.service';
 @Injectable()

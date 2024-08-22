@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PostService } from '../Services/post.service';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
-import { IPostInterface } from 'src/common/models/Interfaces/postInterface';
+import { IPosts } from 'src/common/models/Interfaces/posts/postInterface';
 
-@Controller('post')
-@ApiTags('Post')
+@Controller('posts')
+@ApiTags('POSTS MGMT - Posts Routes')
 export class PostController {
     constructor(private readonly postService: PostService) { }
 
@@ -16,7 +16,7 @@ export class PostController {
     })
     @Post(':userId')
     async addnew(
-        @Body() payloads: IPostInterface,
+        @Body() payloads: IPosts,
         @Param('userId') userId?: string,
     ) {
         try {
@@ -49,7 +49,7 @@ export class PostController {
 
     @Patch(':postId')
     update(
-        @Body() payloads: Partial<IPostInterface>,
+        @Body() payloads: Partial<IPosts>,
         @Param('postId') postId: string
     ) {
         try {
