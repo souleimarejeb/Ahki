@@ -6,29 +6,51 @@ import { IUsers } from 'src/common/models/Interfaces/UserInterface';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>,
+  constructor(
+    @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>,
   ) { }
 
-  create(createUser: IUsers) {
-    const newUser = this.userRepository.create({
-      ...createUser,
-    });
-    return this.userRepository.save(newUser)
+  create(payload: Partial<IUsers>) {
+
+    try {
+      const newUser = this.userRepository.create({ ...payload });
+      return this.userRepository.save(newUser)
+
+    } catch (error) {
+      console.error(error);
+    }
+
   }
 
   findAll() {
-    return this.userRepository.find();
+    try {
+      return this.userRepository.find();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  async findOne(id: string) {
-    return await this.userRepository.findBy({ id });
+  findOne(id: string) {
+    try {
+      return this.userRepository.findBy({ id });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  update(id: string, updateUser: Partial<IUsers>) {
-    return this.userRepository.update({ id }, { ...updateUser });;
+  update(id: string, payload: Partial<IUsers>) {
+    try {
+      return this.userRepository.update({ id }, { ...payload });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   remove(id: string) {
-    return this.userRepository.delete({ id });
+    try {
+      return this.userRepository.delete({ id });
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

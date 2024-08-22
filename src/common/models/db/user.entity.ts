@@ -1,13 +1,13 @@
-import { BeforeInsert, Column, Entity, OneToMany } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinColumn, OneToMany } from "typeorm";
 import { BaseEntity } from "./base.entity";
-import { PostEntity } from "./Posts/posts.entities";
-import { CommentsEntity } from "./Posts/comments.entities";
-import { ReactionsEntity } from "./Posts/reactions.entities";
+import { PostEntity } from "./Posts/posts.entity";
+import { CommentsEntity } from "./Posts/comments.entity";
+import { ReactionsEntity } from "./Posts/reactions.entity";
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
 
-    @Column({ default: '', unique: true })
+    @Column({ unique: true })
     username: string;
 
     @Column({ default: '' })
@@ -16,7 +16,7 @@ export class UserEntity extends BaseEntity {
     @Column({ default: '' })
     lastName: string;
 
-    @Column({ default: '', unique: true })
+    @Column({ unique: true })
     email: string;
 
     @Column({ default: 'user' })
@@ -35,13 +35,19 @@ export class UserEntity extends BaseEntity {
     idAuthentication: string;
 
     @OneToMany(() => CommentsEntity, (comment) => comment.user)
-    comments: CommentsEntity[];
+    @JoinColumn() comments: CommentsEntity[];
 
     @OneToMany(() => PostEntity, (Post) => Post.user)
-    Posts: PostEntity[];
+    @JoinColumn() Posts: PostEntity[];
 
     @OneToMany(() => ReactionsEntity, (reactions) => reactions.user)
-    reactions: ReactionsEntity[];
+    @JoinColumn() reactions: ReactionsEntity[];
+
+    @BeforeInsert()
+    setDefaults() {
+        this.username = `user_${Date.now().toString()}`;
+        this.email = `${Date.now().toString()}@ahki.tn`;
+    }
 
 }
 

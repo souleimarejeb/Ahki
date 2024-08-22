@@ -6,11 +6,14 @@ import { IUsers } from 'src/common/models/Interfaces/UserInterface';
 @Controller('users')
 @ApiTags('Users MGMT ROUTES')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+
+  constructor(
+    private readonly userService: UserService,
+  ) { }
 
   @Post()
-  create(@Body() createUser: IUsers) {
-    return this.userService.create(createUser);
+  create(@Body() payload: Partial<IUsers>) {
+    return this.userService.create(payload);
   }
 
   @Get()
@@ -24,8 +27,11 @@ export class UserController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUser: Partial<IUsers>) {
-    return this.userService.update(id, updateUser);
+  update(
+    @Param('id') id: string,
+    @Body() payload: Partial<IUsers>
+  ) {
+    return this.userService.update(id, payload);
   }
 
   @Delete(':id')

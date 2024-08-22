@@ -6,34 +6,30 @@ import { IComments } from 'src/common/models/Interfaces/posts/commentInterface';
 @Controller('comments')
 @ApiTags('POSTS MGMT - Comments Routes')
 export class CommentController {
-    constructor(private readonly commentService: CommentsService) { }
+    constructor(
+        private readonly commentService: CommentsService
+    ) { }
 
     @Post(':Postid')
-    create(@Body() comment: Partial<IComments>,
-        @Param('Postid',) postId: string,
-        @Query('Userid',) userId: string) {
-        try {
-            return this.commentService.create(comment, postId, userId);
-        } catch (error) {
-            console.error('Error in create:', error);
-            throw new Error('Unable to create posts');
-        }
-
+    create(
+        @Body() payload: Partial<IComments>,
+        @Param('Postid') postId: string,
+        @Query('userId') userId: string
+    ) {
+        return this.commentService.create(payload, postId, userId);
     }
 
-    @Get()
-    findAll() {
-        return this.commentService.findAll();
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.commentService.findOne(id);
+    @Get(':Postid')
+    findAll(@Param('Postid') postId: string,) {
+        return this.commentService.findAll(postId);
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() comment: Partial<IComments>) {
-        return this.commentService.update(id, comment);
+    update(
+        @Param('id') id: string,
+        @Body() payload: Partial<IComments>
+    ) {
+        return this.commentService.update(id, payload);
     }
 
     @Delete(':id')

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../../common/models/db/user.entity';
-import { PostEntity } from 'src/common/models/db/Posts/posts.entities';
-import { CommentsEntity } from 'src/common/models/db/Posts/comments.entities';
-import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entities';
+import { PostEntity } from 'src/common/models/db/Posts/posts.entity';
+import { CommentsEntity } from 'src/common/models/db/Posts/comments.entity';
+import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entity';
 import { PostController } from './Controllers/post.controller';
 import { PostService } from './Services/post.service';
 import { CommentController } from './Controllers/comment.controller';
