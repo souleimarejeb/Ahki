@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MediaEntity } from 'src/common/models/db/Posts/media.entities';
+import { IMediaInterface } from 'src/common/models/Interfaces/mediaInterface';
 import { Repository } from 'typeorm/repository/Repository';
 
 @Injectable()

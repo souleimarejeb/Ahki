@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TokenHistoryService } from '../Services/token_history.service';
 import { ApiTags } from '@nestjs/swagger';
+import { ITokenHistory } from 'src/common/models/Interfaces/tokeHistoryInterface';
 
 
 @Controller('token-history')

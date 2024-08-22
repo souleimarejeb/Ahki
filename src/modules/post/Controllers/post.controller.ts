@@ -1,35 +1,72 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PostService } from '../Services/post.service';
-import { ApiTags } from '@nestjs/swagger';
-
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { IPostInterface } from 'src/common/models/Interfaces/postInterface';
 
 @Controller('post')
 @ApiTags('Post')
 export class PostController {
     constructor(private readonly postService: PostService) { }
 
-    @Post()
-    create(@Body() post: IPostInterface) {
-        return this.postService.create(post);
+    @ApiQuery({
+        name: "userId",
+        type: String,
+        description: "A parameter. not Optional",
+        required: true
+    })
+    @Post(':userId')
+    async addnew(
+        @Body() payloads: IPostInterface,
+        @Param('userId') userId?: string,
+    ) {
+        try {
+            return await this.postService.create(userId, payloads);
+        } catch (error) {
+            console.error('Error in create:', error);
+            throw new Error('Unable to create posts');
+        }
     }
 
     @Get()
     findAll() {
-        return this.postService.findAll();
+        try {
+            return this.postService.findAll();
+        } catch (error) {
+            console.error('Error in findAll:', error);
+            throw new Error('Unable to retrieve posts');
+        }
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.postService.findOne(id);
+    @Get(':postId')
+    async findOne(@Param('postId') postId: string) {
+        try {
+            return await this.postService.findOne(postId, undefined);
+        } catch (error) {
+            console.error('Error in findOne:', error);
+            throw new Error('Unable to retrieve a post');
+        }
     }
 
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() post: Partial<IPostInterface>) {
-        return this.postService.update(id, post);
+    @Patch(':postId')
+    update(
+        @Body() payloads: Partial<IPostInterface>,
+        @Param('postId') postId: string
+    ) {
+        try {
+            return this.postService.update(postId, payloads);
+        } catch (error) {
+            console.error('Error in update:', error);
+            throw new Error('Unable to update a post');
+        }
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.postService.remove(id);
+    @Delete(':postId')
+    async remove(@Param('postId') postId: string,) {
+        try {
+            return await this.postService.remove(postId);
+        } catch (error) {
+            console.error('Error in remove:', error);
+            throw new Error('Unable to remove  a post');
+        }
     }
 }

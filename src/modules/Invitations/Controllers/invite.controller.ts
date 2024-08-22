@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { InviteService } from '../Services/invite.service';
 import { ApiTags } from '@nestjs/swagger';
+import { IInvite } from 'src/common/models/Interfaces/inviteInterface';
 
 
 @Controller('invite')

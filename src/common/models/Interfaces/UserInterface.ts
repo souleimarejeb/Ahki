@@ -1,4 +1,4 @@
-interface IUserInterface {
+export interface IUserInterface {
 
     username: string;
 

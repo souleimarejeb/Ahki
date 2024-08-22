@@ -1,4 +1,4 @@
-interface IInvite {
+export interface IInvite {
 
     code: string;
 

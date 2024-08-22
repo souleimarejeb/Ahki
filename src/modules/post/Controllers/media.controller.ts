@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { MediaService } from '../Services/media.service';
 import { ApiTags } from '@nestjs/swagger';
+import { IMediaInterface } from 'src/common/models/Interfaces/mediaInterface';
 
 
 @Controller('media')

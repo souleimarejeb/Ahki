@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ReactionService } from '../Services/reaction.service';
 import { ApiTags } from '@nestjs/swagger';
+import { IReactions } from 'src/common/models/Interfaces/reactionsInterface';
 
 
 @Controller('reactions')

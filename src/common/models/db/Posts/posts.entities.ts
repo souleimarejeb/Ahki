@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "../base.model";
 import { UserEntity } from "../user.entity";
 import { CommentsEntity } from "./comments.entities";
@@ -21,6 +21,7 @@ export class PostEntity extends BaseEntity {
     status: boolean;
 
     @ManyToOne(() => UserEntity, (user) => user.Posts)
+    @JoinColumn()
     user: UserEntity;
 
     @OneToMany(() => CommentsEntity, (comment) => comment.post)

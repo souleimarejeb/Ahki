@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TokenSourceService } from '../Services/token_source.service';
 import { ApiTags } from '@nestjs/swagger';
+import { ITokenSource } from 'src/common/models/Interfaces/tokenSourceInterface';
 
 
 @Controller('token-source')

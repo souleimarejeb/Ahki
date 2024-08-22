@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "../base.model";
 import { UserEntity } from "../user.entity";
 import { PostEntity } from "./posts.entities";
@@ -10,9 +10,11 @@ export class CommentsEntity extends BaseEntity {
     description: string;
 
     @ManyToOne(() => UserEntity, (user) => user.comments)
+    @JoinColumn()
     user: UserEntity;
 
-    @ManyToOne(() => PostEntity, (post) => post.comments)
+    @ManyToOne(() => PostEntity, (post) => post.comments, { onDelete: 'CASCADE' })
+    @JoinColumn()
     post: PostEntity;
 }
 

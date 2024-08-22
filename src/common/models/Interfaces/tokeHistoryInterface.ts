@@ -1,4 +1,4 @@
-interface ITokenHistory {
+export interface ITokenHistory {
 
     tokenSourceValue: number;
 

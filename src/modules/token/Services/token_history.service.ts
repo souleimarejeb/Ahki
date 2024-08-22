@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TokenHistoryEntity } from 'src/common/models/db/Token/tokenHistory.entity';
 import { TokenSourceEntity } from 'src/common/models/db/Token/tokenSource.entity';
 import { UserEntity } from 'src/common/models/db/user.entity';
+import { ITokenHistory } from 'src/common/models/Interfaces/tokeHistoryInterface';
 import { Repository } from 'typeorm/repository/Repository';
 
 @Injectable()

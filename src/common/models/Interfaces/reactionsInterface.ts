@@ -1,4 +1,4 @@
-interface IReactions {
+export interface IReactions {
 
     type: string;
 }

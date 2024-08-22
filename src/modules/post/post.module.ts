@@ -20,6 +20,7 @@ import { BookmarksService } from './Services/bookmarks.service';
 import { MediaController } from './Controllers/media.controller';
 import { BookmarksController } from './Controllers/bookmarks.controller';
 import { MediaService } from './Services/media.service';
+import { UserService } from '../user/Services/user.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([
@@ -46,7 +47,8 @@ import { MediaService } from './Services/media.service';
         CommentsService,
         ReactionService,
         BookmarksService,
-        MediaService
+        MediaService,
+        UserService,
     ]
 })
 export class PostModule {
