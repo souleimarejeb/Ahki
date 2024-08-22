@@ -1,9 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './modules/root/app.module';
+import { AppModule } from './modules/app.module';
 import { VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AllExceptionsFilter } from './common/filters/all-exception.filter';
-
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,9 +19,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-
-  // FILTERS
-  app.useGlobalFilters(new AllExceptionsFilter());
 
   await app.listen(3000);
 }

@@ -1,17 +1,13 @@
-import { BeforeInsert, Column, Entity, OneToMany } from "typeorm";
-import { BaseEntity } from "./base.model";
-import { TokenHistoryEntity } from "./Token/tokenHistory.entity";
-import { PostEntity } from "./Posts/posts.entities";
-import { CommentsEntity } from "./Posts/comments.entities";
-import { BookMarsEntity } from "./Posts/bookmarks.entities";
-import { ReactionsEntity } from "./Posts/reactions.entities";
-import { InviteEntity } from "./Invitations/invite.entities";
-import { InviteRedemptionEntity } from "./Invitations/invite_redemption.entities";
+import { BeforeInsert, Column, Entity, JoinColumn, OneToMany } from "typeorm";
+import { BaseEntity } from "./base.entity";
+import { PostEntity } from "./Posts/posts.entity";
+import { CommentsEntity } from "./Posts/comments.entity";
+import { ReactionsEntity } from "./Posts/reactions.entity";
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
 
-    @Column({ default: '', unique: true })
+    @Column({ unique: true })
     username: string;
 
     @Column({ default: '' })
@@ -20,7 +16,7 @@ export class UserEntity extends BaseEntity {
     @Column({ default: '' })
     lastName: string;
 
-    @Column({ default: '', unique: true })
+    @Column({ unique: true })
     email: string;
 
     @Column({ default: 'user' })
@@ -38,25 +34,20 @@ export class UserEntity extends BaseEntity {
     @Column({ default: '' })
     idAuthentication: string;
 
-    @OneToMany(() => TokenHistoryEntity, (tokenHistory) => tokenHistory.user)
-    tokenHistories: TokenHistoryEntity[];
-
     @OneToMany(() => CommentsEntity, (comment) => comment.user)
-    comments: CommentsEntity[];
+    @JoinColumn() comments: CommentsEntity[];
 
     @OneToMany(() => PostEntity, (Post) => Post.user)
-    Posts: PostEntity[];
-
-    @OneToMany(() => BookMarsEntity, (bookMarks) => bookMarks.user)
-    bookMarks: BookMarsEntity[];
+    @JoinColumn() Posts: PostEntity[];
 
     @OneToMany(() => ReactionsEntity, (reactions) => reactions.user)
-    reactions: ReactionsEntity[];
+    @JoinColumn() reactions: ReactionsEntity[];
 
-    @OneToMany(() => InviteEntity, (invite) => invite.user)
-    invites: InviteEntity[];
+    @BeforeInsert()
+    setDefaults() {
+        this.username = `user_${Date.now().toString()}`;
+        this.email = `${Date.now().toString()}@ahki.tn`;
+    }
 
-    @OneToMany(() => InviteRedemptionEntity, (inviteRedemption) => inviteRedemption.user)
-    inviteRedemption: InviteRedemptionEntity[];
 }
 

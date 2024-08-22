@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CommentsEntity } from 'src/common/models/db/Posts/comments.entities';
-import { IComments } from 'src/common/models/Interfaces/commentInterface';
-import { UserService } from 'src/modules/user/Services/user.service';
+import { CommentsEntity } from 'src/common/models/db/Posts/comments.entity';
+import { IComments } from 'src/common/models/Interfaces/posts/commentInterface';
+import { UserService } from 'src/modules/users/user.service';
 import { Repository } from 'typeorm/repository/Repository';
 import { PostService } from './post.service';
 @Injectable()
@@ -11,50 +11,46 @@ export class CommentsService {
         @InjectRepository(CommentsEntity) private commentRepository: Repository<CommentsEntity>,
         private readonly userService: UserService,
         private readonly postService: PostService,
-
-
     ) { }
 
-    async create(commentDetails: Partial<IComments>, postId: string, userId: string) {
+    async create(payload: Partial<IComments>, postId: string, userId: string) {
         try {
+
             const user = await this.userService.findOne(userId);
+            if (!user) throw new HttpException('user  not found. Cannot find comment  ', HttpStatus.BAD_REQUEST);
 
-            const post = await this.postService.findOne(postId, null);
+            const post = await this.postService.findOne(postId, "{}");
+            if (!post) throw new HttpException('post  not found. Cannot find post  ', HttpStatus.BAD_REQUEST);
 
-            if (!user) throw new HttpException('user  not found. Cannot Create comment  ', HttpStatus.BAD_REQUEST);
-
-            if (!post) throw new HttpException('post  not found. Cannot Create post  ', HttpStatus.BAD_REQUEST);
 
             const newComment = this.commentRepository.create({
-                ...commentDetails,
-                post: post.data,
+                ...payload,
+                post: post.data[0],
                 user: user[0],
             });
 
             return await this.commentRepository.save(newComment);
 
         } catch (error) {
-            console.error("Error saving comment:", error);
-            throw new HttpException('Failed to create comment .', HttpStatus.INTERNAL_SERVER_ERROR);
+            console.error(error);
         }
     }
 
-    findAll() {
-        return this.commentRepository.find();
-    }
-
-    findOne(id: string) {
-        return this.commentRepository.findBy({ id });
-    }
-
-    async update(id: string, updateComment: Partial<IComments>) {
+    findAll(postId: string) {
         try {
-
-            return await this.commentRepository.update({ id }, { ...updateComment });
-
+            return this.commentRepository.findBy({
+                post: { id: postId },
+            });
         } catch (error) {
-            console.error("Error updating post:", error);
-            throw new HttpException('Failed to update the post.', HttpStatus.INTERNAL_SERVER_ERROR);
+            console.error(error);
+        }
+    }
+
+    update(id: string, payload: Partial<IComments>) {
+        try {
+            return this.commentRepository.update({ id }, { ...payload });
+        } catch (error) {
+            console.error(error);
         }
     }
 
@@ -62,8 +58,7 @@ export class CommentsService {
         try {
             return this.commentRepository.delete({ id });
         } catch (error) {
-            console.error("Error removing  comment:", error);
-            throw new HttpException('Failed to remove the comment.', HttpStatus.INTERNAL_SERVER_ERROR);
+            console.error(error);
         }
     }
 }
