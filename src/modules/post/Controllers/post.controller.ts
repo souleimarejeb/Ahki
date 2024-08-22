@@ -40,7 +40,7 @@ export class PostController {
     @Get(':postId')
     async findOne(@Param('postId') postId: string) {
         try {
-            return await this.postService.findOne(postId);
+            return await this.postService.findOne(postId, undefined);
         } catch (error) {
             console.error('Error in findOne:', error);
             throw new Error('Unable to retrieve a post');

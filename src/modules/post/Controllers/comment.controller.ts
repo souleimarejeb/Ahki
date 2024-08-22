@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CommentsService } from '../Services/comments.service';
 import { ApiTags } from '@nestjs/swagger';
 import { IComments } from 'src/common/models/Interfaces/commentInterface';
@@ -8,9 +8,17 @@ import { IComments } from 'src/common/models/Interfaces/commentInterface';
 export class CommentController {
     constructor(private readonly commentService: CommentsService) { }
 
-    @Post()
-    create(@Body() comment: IComments) {
-        return this.commentService.create(comment);
+    @Post(':Postid')
+    create(@Body() comment: Partial<IComments>,
+        @Param('Postid',) postId: string,
+        @Query('Userid',) userId: string) {
+        try {
+            return this.commentService.create(comment, postId, userId);
+        } catch (error) {
+            console.error('Error in create:', error);
+            throw new Error('Unable to create posts');
+        }
+
     }
 
     @Get()

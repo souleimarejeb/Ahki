@@ -48,14 +48,19 @@ export class PostService {
         }
     }
 
-    async findOne(id: string) {
+    async findOne(id: string, Objc: Object) {
         try {
-            const post = await this.postRepository.find({
-                relations: {
-                    comments: true,
-                },
-                where: { id },
-            });
+            let post = null;
+            if (Objc === null)
+                post = this.postRepository.findOne({ where: { id } })
+
+            if (Objc)
+                post = this.postRepository.find({
+                    relations: {
+                        comments: true,
+                    },
+                    where: { id },
+                });
 
             if (!post) throw new HttpException('Post not found. Cannot dispaly it ', HttpStatus.BAD_REQUEST);
 
@@ -67,7 +72,13 @@ export class PostService {
                 .createQueryBuilder("comment")
                 .where("comment.postid = :id", { id })
                 .getCount()
-            return [post, "reactions:" + countReaction, "comments:" + countComment];
+
+
+            return {
+                data: post,
+                reactions: countReaction,
+                comments: countComment
+            };
 
         } catch (error) {
 
