@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ReactionService } from '../Services/reaction.service';
 import { ApiTags } from '@nestjs/swagger';
 import { IReactions } from 'src/common/models/Interfaces/posts/reactionsInterface';
@@ -7,30 +7,27 @@ import { IReactions } from 'src/common/models/Interfaces/posts/reactionsInterfac
 @Controller('reactions')
 @ApiTags('POSTS MGMT - Reactions Routes')
 export class ReactionsController {
-    constructor(private readonly reactionService: ReactionService) { }
+    constructor(private readonly reactionService: ReactionService
 
-    @Post()
-    create(@Body() reaction: IReactions) {
-        return this.reactionService.create(reaction);
+    ) { }
+
+    @Post(':postId')
+    create(
+        @Body() payload: Partial<IReactions>,
+        @Param('postId') postId: string,
+        @Query('userId') userId: string
+    ) {
+        return this.reactionService.create(payload, postId, userId);
     }
 
-    @Get()
-    findAll() {
-        return this.reactionService.findAll();
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.reactionService.findOne(id);
-    }
-
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() reaction: Partial<IReactions>) {
-        return this.reactionService.update(id, reaction);
+    @Get(':postId')
+    findAll(
+        @Param('postId') postId: string) {
+        return this.reactionService.findAll(postId);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
+    async remove(@Param('id') id: string) {
         return this.reactionService.remove(id);
     }
 }
