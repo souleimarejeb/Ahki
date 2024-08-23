@@ -64,14 +64,6 @@ export class ReactionService {
         }
     }
 
-    update(id: string, payload: Partial<IReactions>) {
-        try {
-            return this.reactiontRepository.update({ id }, { ...payload });
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     remove(id: string) {
         try {
             return this.reactiontRepository.delete({ id });

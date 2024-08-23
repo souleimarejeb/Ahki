@@ -26,14 +26,6 @@ export class ReactionsController {
         return this.reactionService.findAll(postId);
     }
 
-    @Patch(':id')
-    update(
-        @Param('id') id: string,
-        @Body() reaction: Partial<IReactions>
-    ) {
-        return this.reactionService.update(id, reaction);
-    }
-
     @Delete(':id')
     async remove(@Param('id') id: string) {
         return this.reactionService.remove(id);
