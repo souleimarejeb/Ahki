@@ -26,6 +26,11 @@ export class PostService {
 
             if (!user) throw new HttpException('Record not found', HttpStatus.BAD_REQUEST);
 
+            // if (user[0].tokenBlance < 70) throw new HttpException('post  cannot be posted. need more token ', HttpStatus.BAD_REQUEST);
+
+            // user[0].tokenBlance = user[0].tokenBlance - 70;
+            // await this.userService.update(id, { tokenBlance: user[0].tokenBlance });
+
             const newpost = this.postRepository.create({
                 ...payload,
                 user: user[0],

@@ -20,6 +20,8 @@ export class ReactionService {
             const user = await this.userService.findOne(userId);
             if (!user) throw new HttpException('user  not found.  ', HttpStatus.BAD_REQUEST);
 
+
+
             const post = await this.postService.findOne(postId, "{}");
             if (!post) throw new HttpException('post  not found.', HttpStatus.BAD_REQUEST);
 
@@ -30,6 +32,9 @@ export class ReactionService {
                 .getOne();
 
             if (foundReaction) throw new HttpException(' Cannot post new reaction  ', HttpStatus.BAD_REQUEST);
+
+            user[0].tokenBlance = user[0].tokenBlance + 20;
+            await this.userService.update(userId, { tokenBlance: user[0].tokenBlance });
 
             const newReaction = this.reactiontRepository.create({
                 ...payload,

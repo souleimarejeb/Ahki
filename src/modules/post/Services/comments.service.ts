@@ -22,6 +22,9 @@ export class CommentsService {
             const post = await this.postService.findOne(postId, "{}");
             if (!post) throw new HttpException('post  not found. Cannot find post  ', HttpStatus.BAD_REQUEST);
 
+            user[0].tokenBlance = user[0].tokenBlance + 50;
+            await this.userService.update(userId, { tokenBlance: user[0].tokenBlance });
+
 
             const newComment = this.commentRepository.create({
                 ...payload,
