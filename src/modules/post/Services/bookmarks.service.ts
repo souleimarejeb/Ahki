@@ -4,8 +4,7 @@ import { UserService } from 'src/modules/users/user.service';
 import { Repository } from 'typeorm/repository/Repository';
 import { PostService } from './post.service';
 import { BookmarksEntity } from 'src/common/models/db/Posts/bookmarks.entity';
-import { IBookmarks } from 'src/common/models/Interfaces/posts/bookmarkInterface';
-import { on } from 'events';
+
 @Injectable()
 export class BookmarksService {
     constructor(
@@ -18,7 +17,7 @@ export class BookmarksService {
         try {
 
             const user = await this.userService.findOne(userId);
-            if (!user) throw new HttpException('user  not found. Cannot find comment  ', HttpStatus.BAD_REQUEST);
+            if (!user) throw new HttpException('user  not found. Cannot find user  ', HttpStatus.BAD_REQUEST);
 
             const post = await this.postService.findOne(postId, "{}");
             if (!post) throw new HttpException('post  not found. Cannot find post  ', HttpStatus.BAD_REQUEST);
@@ -30,8 +29,6 @@ export class BookmarksService {
                 .getOne();
 
             if (foundBookMarks) throw new HttpException(' Cannot save a  new bookmark  ', HttpStatus.BAD_REQUEST);
-
-
 
             const newComment = this.BookmarksRepository.create({
                 post: post.data[0],

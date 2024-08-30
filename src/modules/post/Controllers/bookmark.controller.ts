@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { IReactions } from 'src/common/models/Interfaces/posts/reactionsInterface';
 import { BookmarksService } from '../Services/bookmarks.service';
 
 
