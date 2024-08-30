@@ -6,6 +6,7 @@ import { CommentsEntity } from 'src/common/models/db/Posts/comments.entity';
 import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entity';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { BookmarksEntity } from 'src/common/models/db/Posts/bookmarks.entity';
 
 @Module({
     imports: [
@@ -13,7 +14,8 @@ import { UserService } from './user.service';
             UserEntity,
             PostEntity,
             CommentsEntity,
-            ReactionsEntity
+            ReactionsEntity,
+            BookmarksEntity
         ])],
     controllers: [UserController],
     providers: [UserService]

@@ -3,6 +3,7 @@ import { BaseEntity } from "./base.entity";
 import { PostEntity } from "./Posts/posts.entity";
 import { CommentsEntity } from "./Posts/comments.entity";
 import { ReactionsEntity } from "./Posts/reactions.entity";
+import { BookmarksEntity } from "./Posts/bookmarks.entity";
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -42,6 +43,9 @@ export class UserEntity extends BaseEntity {
 
     @OneToMany(() => ReactionsEntity, (reactions) => reactions.user)
     @JoinColumn() reactions: ReactionsEntity[];
+
+    @OneToMany(() => BookmarksEntity, (bookmarks) => bookmarks.user)
+    @JoinColumn() bookmarks: BookmarksEntity[];
 
     @BeforeInsert()
     setDefaults() {
