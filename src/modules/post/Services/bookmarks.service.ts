@@ -30,12 +30,12 @@ export class BookmarksService {
 
             if (foundBookMarks) throw new HttpException(' Cannot save a  new bookmark  ', HttpStatus.BAD_REQUEST);
 
-            const newComment = this.BookmarksRepository.create({
+            const newBookmark = this.BookmarksRepository.create({
                 post: post.data[0],
                 user: user[0],
             });
 
-            return await this.BookmarksRepository.save(newComment);
+            return await this.BookmarksRepository.save(newBookmark);
 
         } catch (error) {
             console.error(error);

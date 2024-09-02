@@ -61,7 +61,6 @@ export class PostService {
             let relations = {
                 comments: false,
                 reactions: false,
-                bookmarks: false,
                 user: false
             };
 
@@ -78,7 +77,6 @@ export class PostService {
                     comments: relations?.comments,
                     reactions: relations?.reactions,
                     user: relations?.user,
-                    bookmarks: relations?.bookmarks,
                 },
                 where: { id },
             });
