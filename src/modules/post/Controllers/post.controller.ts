@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { PostService } from '../Services/post.service';
 import { ApiTags } from '@nestjs/swagger';
 import { IPosts } from 'src/common/models/Interfaces/posts/postInterface';
-import { query } from 'express';
+import { Query as ExpressQuery } from 'express-serve-static-core';
 
 @Controller('posts')
 @ApiTags('POSTS MGMT - Posts Routes')
@@ -21,8 +21,8 @@ export class PostController {
     }
 
     @Get()
-    findAll() {
-        return this.postService.findAll();
+    findAll(@Query() query: ExpressQuery) {
+        return this.postService.findAll(query);
     }
 
     @Get(':id')

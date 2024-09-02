@@ -28,7 +28,7 @@ export class BookmarksService {
                 .andWhere('bookmarks.user = :userId', { userId: userId })
                 .getOne();
 
-            if (foundBookMarks) throw new HttpException(' Cannot save a  new bookmark  ', HttpStatus.BAD_REQUEST);
+            if (foundBookMarks) throw new HttpException(' Cannot save a  new bookmark , already exist', HttpStatus.BAD_REQUEST);
 
             const newBookmark = this.BookmarksRepository.create({
                 post: post.data[0],
