@@ -11,6 +11,9 @@ import { ReactionsController } from './Controllers/reactions.controller';
 import { CommentsService } from './Services/comments.service';
 import { ReactionService } from './Services/reaction.service';
 import { UserService } from '../users/user.service';
+import { BookmarksEntity } from 'src/common/models/db/Posts/bookmarks.entity';
+import { BookmarksService } from './Services/bookmarks.service';
+import { BookmarksController } from './Controllers/bookmark.controller';
 
 @Module({
     imports: [
@@ -18,18 +21,21 @@ import { UserService } from '../users/user.service';
             UserEntity,
             PostEntity,
             CommentsEntity,
-            ReactionsEntity
+            ReactionsEntity,
+            BookmarksEntity
         ])],
     controllers: [
         PostController,
         CommentController,
-        ReactionsController
+        ReactionsController,
+        BookmarksController
     ],
     providers: [
         PostService,
         CommentsService,
         ReactionService,
         UserService,
+        BookmarksService
     ]
 })
 export class PostModule {

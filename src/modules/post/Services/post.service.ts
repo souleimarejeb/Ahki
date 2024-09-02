@@ -7,6 +7,7 @@ import { CommentsEntity } from 'src/common/models/db/Posts/comments.entity';
 import { UserService } from 'src/modules/users/user.service';
 import { IPosts } from 'src/common/models/Interfaces/posts/postInterface';
 import { isJSON } from 'src/common/utils';
+import { BookmarksEntity } from 'src/common/models/db/Posts/bookmarks.entity';
 
 @Injectable()
 export class PostService {
@@ -17,7 +18,10 @@ export class PostService {
         @InjectRepository(PostEntity) private postRepository: Repository<PostEntity>,
         @InjectRepository(ReactionsEntity) private reactionRepository: Repository<ReactionsEntity>,
         @InjectRepository(CommentsEntity) private CommentRepository: Repository<CommentsEntity>,
+        @InjectRepository(BookmarksEntity) private BookmarkRepository: Repository<BookmarksEntity>,
+
         private readonly userService: UserService,
+
     ) { }
 
     async create(id: string, payload: Partial<IPosts>) {
@@ -26,10 +30,10 @@ export class PostService {
 
             if (!user) throw new HttpException('Record not found', HttpStatus.BAD_REQUEST);
 
-            // if (user[0].tokenBlance < 70) throw new HttpException('post  cannot be posted. need more token ', HttpStatus.BAD_REQUEST);
+            if (user[0].tokenBlance < 70) throw new HttpException('post  cannot be posted. need more token ', HttpStatus.BAD_REQUEST);
 
-            // user[0].tokenBlance = user[0].tokenBlance - 70;
-            // await this.userService.update(id, { tokenBlance: user[0].tokenBlance });
+            user[0].tokenBlance = user[0].tokenBlance - 70;
+            await this.userService.update(id, { tokenBlance: user[0].tokenBlance });
 
             const newpost = this.postRepository.create({
                 ...payload,
@@ -89,10 +93,17 @@ export class PostService {
                 .where("comment.postid = :id", { id })
                 .getCount()
 
+
+            const countBookmarks = await this.BookmarkRepository
+                .createQueryBuilder("bookmark")
+                .where("bookmark.postid = :id", { id })
+                .getCount()
+
             return {
                 data: foundPost,
                 reactions: countReaction,
-                comments: countComment
+                comments: countComment,
+                bookmark: countBookmarks
             };
 
         } catch (error) {

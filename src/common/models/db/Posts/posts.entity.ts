@@ -3,6 +3,7 @@ import { BaseEntity } from "../base.entity";
 import { UserEntity } from "../user.entity";
 import { CommentsEntity } from "./comments.entity";
 import { ReactionsEntity } from "./reactions.entity";
+import { BookmarksEntity } from "./bookmarks.entity";
 
 @Entity('post_mgmt__posts')
 export class PostEntity extends BaseEntity {
@@ -28,5 +29,8 @@ export class PostEntity extends BaseEntity {
 
     @OneToMany(() => ReactionsEntity, (reactions) => reactions.post)
     reactions: ReactionsEntity[];
+
+    @OneToMany(() => BookmarksEntity, (bookmarks) => bookmarks.user)
+    @JoinColumn() bookmarks: BookmarksEntity[];
 }
 
