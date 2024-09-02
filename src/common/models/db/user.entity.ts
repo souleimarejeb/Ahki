@@ -49,8 +49,8 @@ export class UserEntity extends BaseEntity {
 
     @BeforeInsert()
     setDefaults() {
-        this.username = `user_${Date.now().toString()}`;
-        this.email = `${Date.now().toString()}@ahki.tn`;
+        // this.username = `user_${Date.now().toString()}`;
+        // this.email = `${Date.now().toString()}@ahki.tn`;
     }
 
 }

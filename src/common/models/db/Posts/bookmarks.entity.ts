@@ -7,11 +7,11 @@ import { PostEntity } from "./posts.entity";
 export class BookmarksEntity extends BaseEntity {
 
 
-    @ManyToOne(() => UserEntity, (user) => user.comments)
+    @ManyToOne(() => UserEntity, (user) => user.bookmarks)
     @JoinColumn()
     user: UserEntity;
 
-    @ManyToOne(() => PostEntity, (post) => post.comments, { onDelete: 'CASCADE' })
+    @ManyToOne(() => PostEntity, (post) => post.bookmarks, { onDelete: 'CASCADE' })
     @JoinColumn()
     post: PostEntity;
 }
