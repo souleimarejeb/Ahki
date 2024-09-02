@@ -6,8 +6,12 @@ import { ReactionsEntity } from 'src/common/models/db/Posts/reactions.entity';
 import { CommentsEntity } from 'src/common/models/db/Posts/comments.entity';
 import { UserService } from 'src/modules/users/user.service';
 import { IPosts } from 'src/common/models/Interfaces/posts/postInterface';
-import { isJSON } from 'src/common/utils';
+import { isJSON } from 'src/common/Utils/utils';
 import { BookmarksEntity } from 'src/common/models/db/Posts/bookmarks.entity';
+import { DEFAULT_PAGE_ITEMS, DEFAULT_SKIP } from 'src/common/Utils/constants';
+import { Query } from 'express-serve-static-core'
+import { IPagination } from 'src/common/models/Interfaces/PaginationInterface';
+
 
 @Injectable()
 export class PostService {
@@ -47,9 +51,16 @@ export class PostService {
         }
     }
 
-    findAll() {
+    findAll(query: Query) {
         try {
-            return this.postRepository.find({ relations: ['user'] });
+
+            const pagination = new IPagination();
+            pagination.setPagination(2, Number(query.page))
+            return this.postRepository.find({
+                relations: ['user'],
+                skip: pagination.offset ?? DEFAULT_SKIP,
+                take: pagination.resPerPage ?? DEFAULT_PAGE_ITEMS
+            });
         } catch (error) {
             console.error(error);
         }
