@@ -8,9 +8,9 @@ import { UserService } from 'src/modules/users/user.service';
 import { IPosts } from 'src/common/models/Interfaces/posts/postInterface';
 import { isJSON } from 'src/common/Utils/utils';
 import { BookmarksEntity } from 'src/common/models/db/Posts/bookmarks.entity';
-import { DEFAULT_RES_PER_PAGE, DEFAULT_SKIP } from 'src/common/Utils/constants';
 import { Query } from 'express-serve-static-core'
-import { IPagination } from 'src/common/models/Interfaces/PaginationInterface';
+import { PaginatorService } from 'src/common/Utils/Paginator.service';
+import { DEFAULT_RES_PER_PAGE } from 'src/common/Utils/constants';
 
 
 @Injectable()
@@ -25,6 +25,8 @@ export class PostService {
         @InjectRepository(BookmarksEntity) private BookmarkRepository: Repository<BookmarksEntity>,
 
         private readonly userService: UserService,
+        private readonly paginatorService: PaginatorService,
+
 
     ) { }
 
@@ -51,16 +53,21 @@ export class PostService {
         }
     }
 
-    findAll(query: Query) {
+    async findAll(query: Query) {
         try {
 
-            const pagination = new IPagination();
-            pagination.setPagination(2, Number(query.page))
-            return this.postRepository.find({
+            const { res, page } = query;
+            const paginator = this.paginatorService.setPaginator(Number(res) || DEFAULT_RES_PER_PAGE, Number(page));
+
+            const data = await this.postRepository.find({
                 relations: ['user'],
-                skip: pagination.offset,
-                take: pagination.resPerPage
+                skip: paginator.skip,
+                take: paginator.take
             });
+            return {
+                ...data,
+                count: data.length
+            }
         } catch (error) {
             console.error(error);
         }

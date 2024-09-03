@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { CommentsService } from '../Services/comments.service';
 import { ApiTags } from '@nestjs/swagger';
 import { IComments } from 'src/common/models/Interfaces/posts/commentInterface';
+import { Query as ExpressQuery } from 'express-serve-static-core';
+
 
 @Controller('comments')
 @ApiTags('POSTS MGMT - Comments Routes')
@@ -20,8 +22,11 @@ export class CommentController {
     }
 
     @Get(':Postid')
-    findAll(@Param('Postid') postId: string,) {
-        return this.commentService.findAll(postId);
+    findAll(
+        @Param('Postid') postId: string,
+        @Query() query: ExpressQuery
+    ) {
+        return this.commentService.findAll(postId, query);
     }
 
     @Patch(':id')

@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Param, Delete, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { BookmarksService } from '../Services/bookmarks.service';
+import { Query as ExpressQuery } from 'express-serve-static-core';
 
 
 @Controller('bookmarks')
@@ -20,8 +21,10 @@ export class BookmarksController {
 
     @Get(':userId')
     findAll(
-        @Param('userId') userId: string) {
-        return this.bookmarkService.findAll(userId);
+        @Param('userId') userId: string,
+        @Query() query: ExpressQuery,
+    ) {
+        return this.bookmarkService.findAll(userId, query);
     }
 
     @Delete(':id')
