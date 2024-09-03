@@ -5,12 +5,18 @@ import { IComments } from 'src/common/models/Interfaces/posts/commentInterface';
 import { UserService } from 'src/modules/users/user.service';
 import { Repository } from 'typeorm/repository/Repository';
 import { PostService } from './post.service';
+import { Query } from 'express-serve-static-core'
+import { PaginatorService } from 'src/common/Utils/Paginator.service';
+import { DEFAULT_RES_PER_PAGE } from 'src/common/Utils/constants';
+
 @Injectable()
 export class CommentsService {
     constructor(
         @InjectRepository(CommentsEntity) private commentRepository: Repository<CommentsEntity>,
         private readonly userService: UserService,
         private readonly postService: PostService,
+        private readonly paginatorService: PaginatorService,
+
     ) { }
 
     async create(payload: Partial<IComments>, postId: string, userId: string) {
@@ -39,10 +45,16 @@ export class CommentsService {
         }
     }
 
-    findAll(postId: string) {
+    findAll(postId: string, query: Query) {
         try {
-            return this.commentRepository.findBy({
-                post: { id: postId },
+            const { res, page } = query;
+            const paginator = this.paginatorService.setPaginator(Number(res) || DEFAULT_RES_PER_PAGE, Number(page));
+            return this.commentRepository.find({
+                where: {
+                    post: { id: postId }
+                },
+                skip: paginator.skip,
+                take: paginator.take
             });
         } catch (error) {
             console.error(error);

@@ -14,6 +14,7 @@ import { UserService } from '../users/user.service';
 import { BookmarksEntity } from 'src/common/models/db/Posts/bookmarks.entity';
 import { BookmarksService } from './Services/bookmarks.service';
 import { BookmarksController } from './Controllers/bookmark.controller';
+import { PaginatorService } from 'src/common/Utils/Paginator.service';
 
 @Module({
     imports: [
@@ -35,7 +36,8 @@ import { BookmarksController } from './Controllers/bookmark.controller';
         CommentsService,
         ReactionService,
         UserService,
-        BookmarksService
+        BookmarksService,
+        PaginatorService
     ]
 })
 export class PostModule {
