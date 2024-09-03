@@ -22,7 +22,7 @@ export class BookmarksController {
     @Get(':userId')
     findAll(
         @Param('userId') userId: string,
-        @Query() query: ExpressQuery,
+        @Query() query: ExpressQuery
     ) {
         return this.bookmarkService.findAll(userId, query);
     }
