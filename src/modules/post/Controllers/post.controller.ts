@@ -20,9 +20,13 @@ export class PostController {
         return this.postService.create(userId, payload);
     }
 
-    @Get()
-    findAll(@Query() query: ExpressQuery) {
-        return this.postService.findAll(query);
+    // @Get()
+    // findAll(@Query() query: ExpressQuery) {
+    //     return this.postService.findAll(query);
+    // }
+    @Get("search")
+    findAllKeyword(@Query() query: ExpressQuery) {
+        return this.postService.findAllKeyword(query);
     }
 
     @Get(':id')

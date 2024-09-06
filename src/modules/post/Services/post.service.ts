@@ -11,6 +11,8 @@ import { BookmarksEntity } from 'src/common/models/db/Posts/bookmarks.entity';
 import { Query } from 'express-serve-static-core'
 import { PaginatorService } from 'src/common/Utils/Paginator.service';
 import { DEFAULT_RES_PER_PAGE } from 'src/common/Utils/constants';
+import { Like } from 'typeorm';
+import { count } from 'console';
 
 
 @Injectable()
@@ -68,6 +70,30 @@ export class PostService {
                 ...data,
                 count: data.length
             }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    async findAllKeyword(query: Query) {
+        try {
+            const { res, page } = query;
+            const paginator = this.paginatorService.setPaginator(Number(res) || DEFAULT_RES_PER_PAGE, Number(page));
+            const keyword = query.keyword || '';
+
+            console.log()
+            const result = await this.postRepository
+                .createQueryBuilder("post")
+                .leftJoinAndSelect('post.user', "user")
+                .where("user.username LIKE :keyword", { keyword: `%${keyword}%` })
+                .orWhere("post.title LIKE :keyword", { keyword: `%${keyword}%` })
+                .orWhere("post.tags LIKE :keyword", { keyword: `%${keyword}%` })
+                .orWhere("post.description LIKE :keyword", { keyword: `%${keyword}%` })
+                .take(paginator.take)
+                .skip(paginator.skip)
+                .getMany();
+
+
+            return result
         } catch (error) {
             console.error(error);
         }
